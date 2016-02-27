@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace MobileAppService.Controllers
@@ -46,7 +44,7 @@ namespace MobileAppService.Controllers
                                      StartTime = booking.StartTime,
                                      EndTime = booking.EndTime,
                                      Description = booking.Description,
-                                     Heroes = new List<ApiHeroBasic>() { new ApiHeroBasic() { Id = hero.Id, Name = hero.Name } },
+                                     Heroes = new List<ApiHeroBasic> { new ApiHeroBasic { Id = hero.Id, Name = hero.Name } },
                                      Location = string.Empty,
                                      City = string.Empty,
                                      Country = string.Empty,
@@ -59,6 +57,21 @@ namespace MobileAppService.Controllers
             }
             catch (Exception ex)
             {}
+
+            return new Booking();
+        }
+
+        [Route("api/Bookings/Rate")]
+        public async Task<Booking> PostCreate(BookingRating rating)
+        {
+            var client = new Unknowntype();
+
+            try
+            {
+                var updated = await client.Bookings.PostBookingRatingsWithOperationResponseAsync(rating.Id, new ApiBookingRating { Id = rating.Id.ToString(), Rating = rating.Rating });
+            }
+            catch (Exception ex)
+            { }
 
             return new Booking();
         }

@@ -16,6 +16,8 @@ namespace MobileAppService.Models
         public DateTimeOffset? StartTime { get; set; }
 
         public DateTimeOffset? EndTime { get; set; }
+
+        public double Rating { get; set; }
     }
 
     public class BookingUser
@@ -26,5 +28,12 @@ namespace MobileAppService.Models
     public class BookingNew : Booking
     {
         public string UserId { get; set; }
+    }
+
+    public class BookingRating
+    {
+        public int Id { get; set; }
+
+        public double Rating { get; set; }
     }
 }
