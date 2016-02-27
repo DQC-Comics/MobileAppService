@@ -21,10 +21,12 @@ namespace MobileAppService.Controllers
             var bookings = await client.Bookings.GetBookingsWithOperationResponseAsync();
             return bookings.Body.Where(_ => _.CustomerId == user.UserId).Select(_ => new Booking
             {
+                Id = _.Id ?? 0,
                 HeroName = _.Heroes.FirstOrDefault()?.Name ?? string.Empty,
                 Description = _.Description,
                 StartTime = _.StartTime,
-                EndTime = _.EndTime
+                EndTime = _.EndTime,
+                Rating = _.CustomerRating ?? 0.0
             });
         }
 
@@ -39,7 +41,7 @@ namespace MobileAppService.Controllers
 
             var apiBooking = new ApiBooking
                                  {
-                                    Id = 0,
+                                     Id = 0,
                                      CustomerId = booking.UserId,
                                      StartTime = booking.StartTime,
                                      EndTime = booking.EndTime,
